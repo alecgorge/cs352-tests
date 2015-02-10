@@ -2,7 +2,7 @@
 
 This test harness works slightly differently than the one provided by the TA.
 
-![Screenshot of possible output](https://cdn.rawgit.com/alecgorge/cs352-tests/1e63697e3620979d9852e42b3236b0dd32735f4b/screenshot.png)
+![Screenshot of possible output](https://cdn.rawgit.com/alecgorge/cs352-tests/98e3f1c2feba128bbb64dd5b7dd513c80505f6df/screenshot.png)
 
 *Some text is blurred because it is specific to how I lex/parse*
 
