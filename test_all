@@ -76,7 +76,6 @@ do
 	if [ $? -ne 0 ]
 	then
 		echo -e $red"Test failed: $f"$reset
-		echo -e $red
 		echo -e $red"================= ./parser output ================="
 		./parser "$f"
 		printf "\n"
