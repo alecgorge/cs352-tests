@@ -19,6 +19,7 @@ This test harness works slightly differently than the one provided by the TA.
 * Colorized output!
 * Runs from any directory! (no need to `cd` to the tests directory)
 * Chainable! If any tests fail, `test_all` exists with `1`
+* `test_all` automatically pulls new tests from the GitHub repo. It does this at most once an hour so that it doesn't slow things down.
 
 ## Recommended setup
 

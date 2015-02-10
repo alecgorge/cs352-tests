@@ -8,6 +8,31 @@ reset='\033[0m'
 OLD_DIR=`pwd`
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+cd "$DIR"
+
+# only pull once an hour
+last_time=`stat -c %Y .git/FETCH_HEAD 2>/dev/null`
+
+if [ $? -ne 0 ]
+then
+	# running on a mac
+	last_time=`stat -f "%m" .git/FETCH_HEAD`
+fi
+
+current_time=`date +"%s"`
+((last_time_plus_hour=last_time + 3600))
+
+if [ $last_time_plus_hour -lt $current_time ]
+then
+	echo -e $gray"================ Updating tests ================"
+	git pull origin master
+	echo -e "================ done updating  ================"$reset
+
+	printf "\n"
+fi
+
+# move to Makefile directory
 cd "$DIR/../"
 
 make clean
