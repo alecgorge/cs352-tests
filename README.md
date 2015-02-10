@@ -44,15 +44,16 @@ This test harness works slightly differently than the one provided by the TA.
 	#endif
 	```
 4. *Optional:* Modify your grammar to make your errors verbose.
-5. Create a `test` task in your `Makefile`:
+5. Make sure your `main` returns a non-zero exit code upon failure. I don't pass test pass/fails on program output so that we can useful debugging output and because in the future we are going to need to test actual program output I imagine.
+6. Create a `test` task in your `Makefile`:
 
 	```
 	test:
 		chmod +x ./tests/test_all
 		./tests/test_all
 	```
-6. Run `make test`
-7. Submit new tests by forking this repo and submitting a pull request! All tests that should fail go in the `shouldnt_work` folder and all tests that should pass go in the `should_work` folder.
+7. Run `make test`
+8. Submit new tests by forking this repo and submitting a pull request! All tests that should fail go in the `shouldnt_work` folder and all tests that should pass go in the `should_work` folder.
 
 ## Adding new tests
 
