@@ -1,0 +1,32 @@
+
+
+
+			
+
+
+
+            
+
+
+<script type="text/JavaScript">
+
+
+
+
+var two 		 = 				 2;
+
+var Value = "My value"
+document.write (  Value)
+Value    = "Another value"
+               
+               
+
+
+</script>
+
+
+
+			
+          
+
+

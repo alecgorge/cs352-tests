@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+
+red='\033[0;31m'
+green='\033[0;32m'
+gray='\033[0;37m'
+reset='\033[0m'
+
+OLD_DIR=`pwd`
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "$DIR/../"
+
+make clean
+
+if [ "$1" = "release" ]
+then
+	make
+
+	if [ $? -ne 0 ]
+	then
+		echo "make failed..."
+		make
+	fi
+else
+	make debug
+
+	if [ $? -ne 0 ]
+	then
+		echo "make debug failed..."
+		make
+	fi
+
+	if [ $? -ne 0 ]
+	then
+		echo "make debug and make failed..."
+		exit
+	fi
+fi
+
+echo ""
+
+echo "================ Should work tests ================"
+
+number_passed=0
+number_failed=0
+
+for f in ./tests/should_work/*
+do
+	output=`./parser "$f" > /dev/null 2>&1`
+
+	if [ $? -ne 0 ]
+	then
+		echo -e $red"Test failed: $f"$reset
+		echo -e $red
+		echo -e $red"================= ./parser output ================="
+		./parser "$f"
+		printf "\n"
+		echo -e "================== end of output =================="$reset
+		echo -e $reset
+		((number_failed++))
+	else
+		echo -e $green"Test passed: $f"$reset
+		((number_passed++))
+	fi
+done
+
+printf "\n============== Shouldn't work tests ===============\n"
+
+for f in ./tests/shouldnt_work/*
+do
+	output=`./parser "$f" 2>&1`
+
+	if [ $? -eq 0 ]
+	then
+		echo -e $red"Test failed: $f"$reset
+		echo -e $red"================= ./parser output ================="
+		./parser "$f"
+		printf "\n"
+		echo -e "================== end of output =================="$reset
+		((number_failed++))
+	else
+		echo -e $green"Test passed: $f"$reset
+		((number_passed++))
+	fi
+done
+
+printf "\n"
+
+echo -e $gray"===================== Summary ====================="
+printf "Tests passed:%b%38s%b\n" $green $number_passed $gray
+printf "Tests failed:%b%38s%b\n" $red $number_failed $gray
+printf "Total tests:%39s%b\n" $((number_failed + number_passed)) $reset
+
+cd "$OLD_DIR"
+
+# exit with an error code if any tests failed
+if [ $number_failed -ne 0 ]
+then
+	exit 1
+fi
+
+exit 0

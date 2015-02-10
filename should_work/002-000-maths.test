@@ -1,0 +1,7 @@
+<script type="text/JavaScript">
+var one = 0 + 1;
+var two = one + one;
+var zero = two - two;
+two = one * two
+one = two / two
+</script>

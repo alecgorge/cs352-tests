@@ -1,0 +1,5 @@
+<script type="text/JavaScript">
+var one = 0 + 1;
+var five = one + one + one + one + one;
+var twenty = five * 2 * 2;
+</script>
