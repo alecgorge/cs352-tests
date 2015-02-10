@@ -4,6 +4,8 @@ This test harness works slightly differently than the one provided by the TA.
 
 ![Screenshot of possible output](https://cdn.rawgit.com/alecgorge/cs352-tests/master/screenshot.png)
 
+*Some text is blurred because it is specific to how I lex/parse*
+
 ## Features
 
 * Lists passed and failed tests
@@ -55,6 +57,8 @@ This test harness works slightly differently than the one provided by the TA.
 ## Adding new tests
 
 Submit new tests by forking this repo and submitting a pull request! All tests that should fail go in the `shouldnt_work` folder and all tests that should pass go in the `should_work` folder.
+
+All files in the directory are used for tests, I just like numbering them in a consistent manner. Try to give the tests useful names.
 
 ## Notes
 
