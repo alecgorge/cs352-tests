@@ -2,6 +2,8 @@
 
 This test harness works slightly differently than the one provided by the TA.
 
+![Screenshot of possible output](https://cdn.rawgit.com/alecgorge/cs352-tests/master/screenshot.png)
+
 ## Features
 
 * Lists passed and failed tests
@@ -24,12 +26,11 @@ This test harness works slightly differently than the one provided by the TA.
 	git clone https://github.com/alecgorge/cs352-tests.git tests
 	```
 	
-2. Create a `debug` task in your `Makefile`. *Do not* put this task first in your Makefile or that will be the task that is run by the TAs when they grade by running `make`:
+2. Create a `debug` task in your `Makefile`. **Do not** put this task first in your Makefile or that will be the task that is run by the TAs when they grade by running `make`:
 
 	```
 	debug:y.tab.c lex.yy.c
 		gcc -DDEBUG=1 y.tab.c lex.yy.c -o parser -lfl
-
 	```
 3. Modify your lexer utilize a macro to only output information when `DEBUG` is defined. I like print out the token names and values of ID's and strings. Here is a sample macro with a bad name:
 
@@ -40,7 +41,7 @@ This test harness works slightly differently than the one provided by the TA.
 	#	define only_output_in_debug_mode(...) 		do {} while(0)
 	#endif
 	```
-4. Modify your grammar to make your errors verbose.
+4. *Optional:* Modify your grammar to make your errors verbose.
 5. Create a `test` task in your `Makefile`:
 
 	```
