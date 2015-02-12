@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+shopt -s globstar
+
 red='\033[0;31m'
 green='\033[0;32m'
 gray='\033[0;37m'
@@ -69,11 +71,18 @@ echo "================ Should work tests ================"
 number_passed=0
 number_failed=0
 
-for f in ./tests/should_work/*
-do
+function run_test() {
+	file=$1
+	pass_status_code=1
+
+	if [ -z "$2" ]
+	then
+		pass_status_code=0
+	fi
+
 	output=`./parser "$f" > /dev/null 2>&1`
 
-	if [ $? -ne 0 ]
+	if [ $? -ne $pass_status_code ]
 	then
 		echo -e $red"Test failed: $f"$reset
 		echo -e $red"================= ./parser output ================="
@@ -85,26 +94,34 @@ do
 	else
 		echo -e $green"Test passed: $f"$reset
 		((number_passed++))
-	fi
+	fi	
+}
+
+for f in ./tests/should_work/**/*
+do
+	run_test "$f"
 done
 
 printf "\n============== Shouldn't work tests ===============\n"
 
-for f in ./tests/shouldnt_work/*
+for f in ./tests/shouldnt_work/**/*
 do
-	output=`./parser "$f" 2>&1`
+	run_test "$f" "fail"
+done
 
-	if [ $? -eq 0 ]
-	then
-		echo -e $red"Test failed: $f"$reset
-		echo -e $red"================= ./parser output ================="
-		./parser "$f"
-		printf "\n"
-		echo -e "================== end of output =================="$reset
-		((number_failed++))
-	else
-		echo -e $green"Test passed: $f"$reset
-		((number_passed++))
+printf "\n=============== Jon Egeland's Tests ===============\n"
+
+for f in ./tests/jonegeland_tests/**/*
+do
+	filename=`basename "$f"`
+
+	if [ -f "$f" ]; then
+		if [[ $filename =~ ^err_ ]]
+		then
+			run_test "$f", "fail"
+		else
+			run_test "$f"
+		fi
 	fi
 done
 
